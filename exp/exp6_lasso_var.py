@@ -29,7 +29,11 @@ from src.lasso_var import lasso_var_fit
 
 
 def _fx_cluster(fx: pd.DataFrame) -> list[str]:
-    centred = to_matrix(fx.apply(lambda c: c - c.mean()))
+    # Same preprocessing as in exp5: first differences, standardised columns,
+    # so ``rho`` acts on partial correlations (Section 4.1).
+    diffs = fx.diff().dropna(how="any")
+    scales = diffs.std(ddof=0).replace(0.0, 1.0)
+    centred = to_matrix((diffs - diffs.mean()) / scales)
     result = covariance_selection(centred, rho=COV_SELECT_RHO_FX)
     graph = precision_to_graph(result.precision, list(fx.columns))
     cluster = largest_connected_cluster(graph)

@@ -1,0 +1,54 @@
+{
+  "swap": {
+    "rho": 0.1,
+    "n_assets": 8,
+    "n_observations": 1372,
+    "n_edges_penalised": 19,
+    "n_edges_unpenalised": 28,
+    "largest_cluster_size": 8,
+    "largest_cluster": [
+      "10Y",
+      "1Y",
+      "2Y",
+      "30Y",
+      "3Y",
+      "4Y",
+      "5Y",
+      "7Y"
+    ]
+  },
+  "fx": {
+    "rho": 0.01,
+    "n_assets": 23,
+    "n_observations": 1279,
+    "n_edges_penalised": 167,
+    "n_edges_unpenalised": 253,
+    "largest_cluster_size": 23,
+    "largest_cluster": [
+      "Australia",
+      "Brazil",
+      "Canada",
+      "China",
+      "Denmark",
+      "Eurozone",
+      "Hong Kong",
+      "India",
+      "Japan",
+      "Malaysia",
+      "Mexico",
+      "New Zealand",
+      "Norway",
+      "Singapore",
+      "South Africa",
+      "South Korea",
+      "Sri Lanka",
+      "Sweden",
+      "Switzerland",
+      "Taiwan",
+      "Thailand",
+      "United Kingdom",
+      "Venezuela"
+    ],
+    "dropped_currencies": []
+  }
+}

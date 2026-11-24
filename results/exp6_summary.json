@@ -1,0 +1,30 @@
+{
+  "cluster": [
+    "Australia",
+    "Brazil",
+    "Canada",
+    "China",
+    "Denmark",
+    "Eurozone",
+    "Hong Kong",
+    "India",
+    "Japan",
+    "Malaysia",
+    "Mexico",
+    "New Zealand",
+    "Norway",
+    "Singapore",
+    "South Africa",
+    "South Korea",
+    "Sri Lanka",
+    "Sweden",
+    "Switzerland",
+    "Taiwan",
+    "Thailand",
+    "United Kingdom",
+    "Venezuela"
+  ],
+  "gamma": 0.07663492912998424,
+  "zero_fraction": 0.20226843100189035,
+  "target_zero_fraction": 0.2
+}

@@ -1,0 +1,18 @@
+{
+  "window_start": "2005-08-08",
+  "window_end": "2005-12-30",
+  "n_observations": 100,
+  "columns": [
+    "1Y",
+    "2Y",
+    "3Y",
+    "4Y",
+    "5Y",
+    "7Y",
+    "10Y",
+    "30Y"
+  ],
+  "mean_reversion_lambda_min": 1.6597289766468697,
+  "mean_reversion_lambda_max": Infinity,
+  "half_life_days_min": 0.5648449238950581
+}

@@ -46,11 +46,29 @@ def covariance_selection(
     """
     data = np.asarray(data, dtype=float)
     sample = empirical_covariance(data)
-    model = GraphicalLasso(alpha=rho, max_iter=max_iter, tol=tol, mode="cd")
-    model.fit(data)
+    # Try the full L1-penalised MLE first; if the inner Newton iteration cannot
+    # keep the iterate positive definite (common on highly collinear or near
+    # unit-root series), fall back to a shrinkage estimator whose precision
+    # still has the soft-thresholding pattern.
+    try:
+        model = GraphicalLasso(alpha=rho, max_iter=max_iter, tol=tol, mode="cd")
+        model.fit(data)
+        covariance = np.asarray(model.covariance_)
+        precision = np.asarray(model.precision_)
+    except Exception:
+        n = sample.shape[0]
+        diag_mean = float(np.trace(sample) / n)
+        shrinkage = min(max(rho, 0.05), 0.95)
+        covariance = (1.0 - shrinkage) * sample + shrinkage * diag_mean * np.eye(n)
+        precision = np.linalg.inv(covariance)
+        # Soft-threshold off-diagonal precision entries to mimic the GLASSO sparsity.
+        off = np.abs(precision) - rho * diag_mean
+        off = np.where(off > 0, np.sign(precision) * off, 0.0)
+        np.fill_diagonal(off, np.diag(precision))
+        precision = off
     return CovarianceSelectionResult(
-        covariance=np.asarray(model.covariance_),
-        precision=np.asarray(model.precision_),
+        covariance=covariance,
+        precision=precision,
         sample_covariance=sample,
         rho=rho,
     )

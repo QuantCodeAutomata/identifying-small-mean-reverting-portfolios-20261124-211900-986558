@@ -54,11 +54,18 @@ def _build_AB_penalized(
 
     S_lag = S[:-1]
     S_cur = S[1:]
-    # Penalised Gamma comes from covariance selection on the centred series.
-    centred = S_cur - S_cur.mean(axis=0, keepdims=True)
-    cov_res = covariance_selection(centred, rho=rho)
-    gamma_est = np.asarray(cov_res.covariance)
-    gamma = S_cur.shape[0] * gamma_est  # match the scale of S_cur^T S_cur
+    # Penalised Gamma: run covariance selection on standardised levels, then
+    # rescale back to the original units so Gamma lives in the same space as the
+    # OLS sample covariance ``S_cur.T @ S_cur / N``.
+    means = S_cur.mean(axis=0, keepdims=True)
+    scales = S_cur.std(axis=0, ddof=0, keepdims=True)
+    scales = np.where(scales > 0, scales, 1.0)
+    Z = (S_cur - means) / scales
+    cov_res = covariance_selection(Z, rho=rho)
+    corr_est = np.asarray(cov_res.covariance)
+    D = scales.ravel()
+    gamma_cov = (D[:, None] * D[None, :]) * corr_est
+    gamma = S_cur.shape[0] * gamma_cov  # match the scale of S_cur^T S_cur
     lasso = lasso_var_fit(S, zero_fraction=zero_fraction)
     S_hat = S_lag @ lasso.A
     A = S_hat.T @ S_hat

@@ -1,0 +1,62 @@
+{
+  "quality_rows": [
+    {
+      "k": 1,
+      "greedy_lambda": 4.871229602555061,
+      "sdp_lambda": 4.871229602555061
+    },
+    {
+      "k": 2,
+      "greedy_lambda": 82.61675888451488,
+      "sdp_lambda": 7.332648179427505
+    },
+    {
+      "k": 3,
+      "greedy_lambda": 569.3702964509731,
+      "sdp_lambda": 14.199776306794686
+    },
+    {
+      "k": 4,
+      "greedy_lambda": 1317.7940433819806,
+      "sdp_lambda": 8.54850952243882
+    },
+    {
+      "k": 5,
+      "greedy_lambda": 1600.095833035519,
+      "sdp_lambda": 42.13196222596994
+    },
+    {
+      "k": 6,
+      "greedy_lambda": Infinity,
+      "sdp_lambda": 27.792151808151978
+    },
+    {
+      "k": 7,
+      "greedy_lambda": Infinity,
+      "sdp_lambda": 27.578147517531875
+    },
+    {
+      "k": 8,
+      "greedy_lambda": Infinity,
+      "sdp_lambda": 40.2699987697004
+    }
+  ],
+  "cpu_rows": [
+    {
+      "n": 10,
+      "cpu_seconds_greedy": 0.0034141149999413756
+    },
+    {
+      "n": 20,
+      "cpu_seconds_greedy": 0.015506872000059957
+    },
+    {
+      "n": 50,
+      "cpu_seconds_greedy": 0.19510289699996974
+    },
+    {
+      "n": 100,
+      "cpu_seconds_greedy": 1.8207708960001128
+    }
+  ]
+}

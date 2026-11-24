@@ -1,0 +1,5 @@
+{
+  "solver": "SCS",
+  "mean_reversion_at_k1": 4.871229602555061,
+  "mean_reversion_at_k_n": 40.2699987697004
+}

@@ -45,7 +45,16 @@ def _draw_graph(graph: nx.Graph, out_png: str, title: str) -> None:
 
 
 def _run_block(data: pd.DataFrame, rho: float, label: str) -> dict:
-    X = to_matrix(data.apply(lambda c: c - c.mean()))
+    # Covariance selection assumes a stationary Gaussian sample; swap and FX
+    # levels are non-stationary, so we fit it on daily first differences
+    # (the innovation process of the VAR model of Section 4.1).
+    diffs = data.diff().dropna(how="any")
+    # Scale each column to unit standard deviation so the L1 penalty is on
+    # partial correlations rather than raw covariances; this is standard
+    # practice and makes the ``rho`` values the paper reports comparable
+    # across assets with very different scales (percent swap rates vs. FX).
+    scales = diffs.std(ddof=0).replace(0.0, 1.0)
+    X = to_matrix((diffs - diffs.mean()) / scales)
     penalised = covariance_selection(X, rho=rho)
     sample_prec = np.linalg.pinv(penalised.sample_covariance)
     graph_pen = precision_to_graph(penalised.precision, list(data.columns))

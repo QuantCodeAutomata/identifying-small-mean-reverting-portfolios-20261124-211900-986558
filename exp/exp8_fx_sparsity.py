@@ -34,7 +34,9 @@ from src.rolling import aggregate_windows, rolling_sparse_study
 
 
 def _cluster(fx: pd.DataFrame) -> list[str]:
-    centred = to_matrix(fx.apply(lambda c: c - c.mean()))
+    diffs = fx.diff().dropna(how="any")
+    scales = diffs.std(ddof=0).replace(0.0, 1.0)
+    centred = to_matrix((diffs - diffs.mean()) / scales)
     res = covariance_selection(centred, rho=COV_SELECT_RHO_FX)
     graph = precision_to_graph(res.precision, list(fx.columns))
     cluster = largest_connected_cluster(graph)
