@@ -92,7 +92,15 @@ def main() -> dict:
     summary["swap"] = _run_block(swaps, COV_SELECT_RHO_SWAP, "swap")
     fx = load_fx_rates()
     summary["fx"] = _run_block(fx, COV_SELECT_RHO_FX, "fx")
-    summary["fx"]["dropped_currencies"] = list(fx.attrs.get("dropped", []))
+    from src.config import FX_UNIVERSE_PAPER
+    loaded = set(fx.columns)
+    dropped = [c for c in FX_UNIVERSE_PAPER if c not in loaded]
+    summary["fx"]["dropped_currencies"] = dropped
+    summary["fx"]["paper_universe_size"] = len(FX_UNIVERSE_PAPER)
+    summary["fx"]["loaded_universe_size"] = len(loaded)
+    pd.DataFrame({"currency": dropped}).to_csv(
+        os.path.join(RESULTS_DIR, "exp5_fx_dropped.csv"), index=False
+    )
     with open(os.path.join(RESULTS_DIR, "exp5_summary.json"), "w") as fh:
         json.dump(summary, fh, indent=2)
     print("exp5 done:", summary)

@@ -49,6 +49,32 @@
       "United Kingdom",
       "Venezuela"
     ],
-    "dropped_currencies": []
+    "dropped_currencies": [
+      "Argentina",
+      "Chile",
+      "Colombia",
+      "Czech Republic",
+      "Egypt",
+      "Finland",
+      "Hungary",
+      "Indonesia",
+      "Israel",
+      "Jordan",
+      "Kuwait",
+      "Latvia",
+      "Lithuania",
+      "Morocco",
+      "Pakistan",
+      "Papua New Guinea",
+      "Peru",
+      "Philippines",
+      "Poland",
+      "Romania",
+      "Russia",
+      "Saudi Arabia",
+      "Turkey"
+    ],
+    "paper_universe_size": 44,
+    "loaded_universe_size": 23
   }
 }

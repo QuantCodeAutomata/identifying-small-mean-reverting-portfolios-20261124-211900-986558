@@ -96,6 +96,18 @@ FX_INVERT_FRED: dict[str, bool] = {
 FX_START: str = "2002-04-01"  # paper page 16: "from April 2002 until April 2007"
 FX_END: str = "2007-04-30"
 
+# The 45 U.S. dollar exchange rates quoted in Section 4.1/5.2 of the paper.
+FX_UNIVERSE_PAPER: tuple[str, ...] = (
+    "Argentina", "Australia", "Brazil", "Canada", "Chile", "China", "Colombia",
+    "Czech Republic", "Egypt", "Eurozone", "Finland", "Hong Kong", "Hungary",
+    "India", "Indonesia", "Israel", "Japan", "Jordan", "Kuwait", "Latvia",
+    "Lithuania", "Malaysia", "Mexico", "Morocco", "New Zealand", "Norway",
+    "Pakistan", "Papua New Guinea", "Peru", "Philippines", "Poland", "Romania",
+    "Russia", "Saudi Arabia", "Singapore", "South Africa", "South Korea",
+    "Sri Lanka", "Switzerland", "Taiwan", "Thailand", "Turkey",
+    "United Kingdom", "Venezuela",
+)
+
 # The 14 currencies the paper's covariance-selection cluster isolates (Figure 8).
 FX_CLUSTER_PAPER: tuple[str, ...] = (
     "Russia", "Thailand", "Pakistan", "Sri Lanka", "Czech Republic", "Taiwan",
