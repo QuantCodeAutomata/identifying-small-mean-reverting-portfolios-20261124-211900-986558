@@ -13,6 +13,6 @@
     "30Y"
   ],
   "mean_reversion_lambda_min": 1.6597289766468697,
-  "mean_reversion_lambda_max": Infinity,
-  "half_life_days_min": 0.5648449238950581
+  "mean_reversion_lambda_max": 349.34617900221247,
+  "half_life_days_min": 0.5
 }

@@ -47,11 +47,17 @@ def estimate_ou(series: np.ndarray, delta_t: float = DELTA_T) -> OUEstimate:
     if den <= 0:
         raise ValueError("Degenerate variance in OU regression.")
     ratio = num / den
-    # Guard against non-stationary or spurious correlations (ratio >= 1).
+    # A non-positive or near-unit AR(1) ratio corresponds to the two edge cases
+    # the OU model cannot represent: an overshooting (anti-correlated) series or
+    # a non-stationary one. The paper's appendix (page 18) formulas break down
+    # there. Cap the reported lambda at a half-life of half a trading day so
+    # window-averaged statistics stay finite and comparable.
+    lam_cap = float(np.log(2.0) / max(0.5 * delta_t, 1e-12))
     if ratio <= 0:
-        lam = float(np.inf)
+        lam = lam_cap
     else:
         lam = -float(np.log(max(ratio, 1e-12))) / delta_t
+        lam = min(lam, lam_cap)
     if lam > 0 and np.isfinite(lam):
         residuals = p_cur - np.exp(-lam * delta_t) * p_lag
         var = float(np.sum(residuals ** 2))
